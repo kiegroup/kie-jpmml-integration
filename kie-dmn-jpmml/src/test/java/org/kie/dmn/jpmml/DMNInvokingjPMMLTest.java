@@ -66,7 +66,7 @@ public class DMNInvokingjPMMLTest {
         assertThat(DMNRuntimeUtil.formatMessages(dmnResult.getMessages()), dmnResult.hasErrors(), is(false));
 
         final DMNContext result = dmnResult.getContext();
-        assertThat((Map<String, Object>) result.get("Decision"), hasEntry("class", "Iris-versicolor"));
+        assertThat(result.get("Decision"), is("Iris-versicolor"));
     }
 
     @Test
@@ -118,7 +118,7 @@ public class DMNInvokingjPMMLTest {
         assertThat(DMNRuntimeUtil.formatMessages(dmnResult.getMessages()), dmnResult.hasErrors(), is(false));
 
         final DMNContext result = dmnResult.getContext();
-        assertThat((Map<String, Object>) result.get("hardcoded"), hasEntry("result", new BigDecimal(3)));
+        assertThat(result.get("hardcoded"), is(new BigDecimal(3)));
     }
 
     @Test
