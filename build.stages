@@ -1,4 +1,4 @@
-if(!env.kiegroup_appformer) {
+if(!env.kiegroup_kie_jpmml_integration) {
     stage('Build kie-jpmml-integration projects') {
         dir("drools") {
             script {
