@@ -18,7 +18,7 @@
   </modules>
   
   <properties>
-    <version.org.jpmml.evaluator>1.4.9</version.org.jpmml.evaluator> <!-- ATTENTION 1.4.11 intentional, because 1.4.9 evaluators depend on 1.4.11 -->
+    <version.org.jpmml.evaluator>1.5.1</version.org.jpmml.evaluator> <!-- ATTENTION 1.5.1 intentional, because 1.5.1 evaluators depend on 1.5.1 -->
     <version.org.glassfish.jaxb>2.4.0-b180830.0438</version.org.glassfish.jaxb>
   </properties>
 
