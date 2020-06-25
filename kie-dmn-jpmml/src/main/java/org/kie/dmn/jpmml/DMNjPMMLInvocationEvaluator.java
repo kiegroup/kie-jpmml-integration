@@ -25,7 +25,7 @@ import java.util.Map.Entry;
 import java.util.function.Supplier;
 
 import org.dmg.pmml.FieldName;
-import org.jpmml.evaluator.DefaultVisitorBattery;
+import org.jpmml.evaluator.visitors.DefaultModelEvaluatorBattery;
 import org.jpmml.evaluator.EvaluatorUtil;
 import org.jpmml.evaluator.FieldValue;
 import org.jpmml.evaluator.InputField;
@@ -53,7 +53,7 @@ public class DMNjPMMLInvocationEvaluator extends AbstractPMMLInvocationEvaluator
         super(dmnNS, node, pmmlResource, model);
         LoadingModelEvaluatorBuilder builder = new LoadingModelEvaluatorBuilder();
         try (InputStream documentStream = documentResource.getInputStream()) {
-            Supplier<DefaultVisitorBattery> visitors = () -> new DefaultVisitorBattery();
+            Supplier<DefaultModelEvaluatorBattery> visitors = () -> new DefaultModelEvaluatorBattery();
             evaluator = builder.setLocatable(false)
                                .setVisitors(visitors.get())
                                .load(documentStream)

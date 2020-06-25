@@ -16,18 +16,26 @@
 
 package org.jbpm.prediction.pmml;
 
-import org.dmg.pmml.FieldName;
-import org.jpmml.evaluator.*;
-import org.kie.api.task.model.Task;
-import org.kie.internal.task.api.prediction.PredictionService;
-import org.xml.sax.SAXException;
-
-import javax.xml.bind.JAXBException;
 import java.io.File;
 import java.io.IOException;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+
+import javax.xml.bind.JAXBException;
+
+import org.dmg.pmml.FieldName;
+import org.jpmml.evaluator.Evaluator;
+import org.jpmml.evaluator.EvaluatorUtil;
+import org.jpmml.evaluator.FieldValue;
+import org.jpmml.evaluator.InputField;
+import org.jpmml.evaluator.LoadingModelEvaluatorBuilder;
+import org.jpmml.evaluator.OutputField;
+import org.jpmml.evaluator.TargetField;
+import org.jpmml.evaluator.visitors.DefaultModelEvaluatorBattery;
+import org.kie.api.task.model.Task;
+import org.kie.internal.task.api.prediction.PredictionService;
+import org.xml.sax.SAXException;
 
 public abstract class AbstractPMMLBackend implements PredictionService {
 
@@ -49,7 +57,7 @@ public abstract class AbstractPMMLBackend implements PredictionService {
         try {
             _evalutator = new LoadingModelEvaluatorBuilder()
                     .setLocatable(false)
-                    .setVisitors(new DefaultVisitorBattery())
+                    .setVisitors(new DefaultModelEvaluatorBattery())
                     .load(pmmlFile)
                     .build();
             _evalutator.verify();
