@@ -16,7 +16,7 @@
 
 package org.kie.dmn.jpmml;
 
-import org.kie.dmn.core.pmml.DMNTreePMMLTest;
+import org.kie.dmn.pmml.DMNTreePMMLTest;
 
 public class UsingJPMMLTreeTest extends DMNTreePMMLTest {
 }

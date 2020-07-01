@@ -16,7 +16,7 @@
 
 package org.kie.dmn.jpmml;
 
-import org.kie.dmn.core.pmml.DMNRuntimePMMLTest;
+import org.kie.dmn.pmml.DMNRuntimePMMLTest;
 
 public class UsingJPMMLTest extends DMNRuntimePMMLTest {
     // same.

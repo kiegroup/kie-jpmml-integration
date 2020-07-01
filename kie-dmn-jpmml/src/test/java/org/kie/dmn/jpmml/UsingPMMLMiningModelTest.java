@@ -16,8 +16,7 @@
 
 package org.kie.dmn.jpmml;
 
-import org.kie.dmn.core.pmml.DMNMiningModelPMMLTest;
+import org.kie.dmn.pmml.DMNMiningModelPMMLTest;
 
 public class UsingPMMLMiningModelTest extends DMNMiningModelPMMLTest {
-
 }
