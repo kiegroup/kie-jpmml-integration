@@ -16,7 +16,7 @@
 
 package org.kie.dmn.jpmml;
 
-import org.kie.dmn.core.pmml.DMNRegressionPMMLTest;
+import org.kie.dmn.pmml.DMNRegressionPMMLTest;
 
 public class UsingPMMLRegressionTest extends DMNRegressionPMMLTest {
 }

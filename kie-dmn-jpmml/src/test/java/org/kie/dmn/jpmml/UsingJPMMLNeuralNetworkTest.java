@@ -16,7 +16,7 @@
 
 package org.kie.dmn.jpmml;
 
-import org.kie.dmn.core.pmml.DMNNeuralNetworkPMMLTest;
+import org.kie.dmn.pmml.DMNNeuralNetworkPMMLTest;
 
 public class UsingJPMMLNeuralNetworkTest extends DMNNeuralNetworkPMMLTest {
 }

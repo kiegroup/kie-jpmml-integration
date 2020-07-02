@@ -16,7 +16,7 @@
 
 package org.kie.dmn.jpmml;
 
-import org.kie.dmn.core.pmml.DMNKMeansModelPMMLTest;
+import org.kie.dmn.pmml.DMNKMeansModelPMMLTest;
 
 public class UsingJPMMLKMeansTest extends DMNKMeansModelPMMLTest {
 }
