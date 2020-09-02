@@ -157,7 +157,6 @@
       <plugin>
         <groupId>org.jboss.jandex</groupId>
         <artifactId>jandex-maven-plugin</artifactId>
-        <version>1.0.6</version>
         <executions>
           <execution>
             <id>make-index</id>
