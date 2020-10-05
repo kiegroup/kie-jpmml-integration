@@ -50,6 +50,12 @@
           <groupId>org.jbpm</groupId>
           <artifactId>jbpm-test</artifactId>
           <version>${version.org.kie}</version>
+          <exclusions>
+            <exclusion>
+              <groupId>javax.activation</groupId>
+              <artifactId>activation</artifactId>
+            </exclusion>
+          </exclusions>
           <scope>test</scope>
         </dependency>
         <dependency>
