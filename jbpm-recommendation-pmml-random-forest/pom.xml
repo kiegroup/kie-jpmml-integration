@@ -66,6 +66,11 @@
       <groupId>org.kie</groupId>
       <artifactId>kie-internal</artifactId>
     </dependency>
+    <!-- needed for Java 11 -->
+    <dependency>
+      <groupId>org.jboss.spec.javax.xml.bind</groupId>
+      <artifactId>jboss-jaxb-api_2.3_spec</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.kie</groupId>
       <artifactId>kie-test-util</artifactId>
