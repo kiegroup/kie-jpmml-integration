@@ -20,6 +20,18 @@
   <properties>
     <version.org.jpmml.evaluator>1.5.1</version.org.jpmml.evaluator> <!-- ATTENTION 1.5.1 intentional, because 1.5.1 evaluators works with 1.5.1 -->
     <version.org.glassfish.jaxb>2.4.0-b180830.0438</version.org.glassfish.jaxb>
+
+    <maven.hibernate.dialect>org.hibernate.dialect.H2Dialect</maven.hibernate.dialect>
+    <maven.datasource.classname>org.h2.jdbcx.JdbcDataSource</maven.datasource.classname>
+    <maven.jdbc.driver.class>org.h2.Driver</maven.jdbc.driver.class>
+    <maven.jdbc.db.name/>
+    <maven.jdbc.db.port/>
+    <maven.jdbc.db.server/>
+    <maven.jdbc.driver.jar/>
+    <maven.jdbc.username>sa</maven.jdbc.username>
+    <maven.jdbc.password>sasa</maven.jdbc.password>
+    <maven.jdbc.url>jdbc:h2:tcp://localhost/${project.basedir}/target/jbpm-test;MVCC=TRUE</maven.jdbc.url>
+    <maven.jdbc.schema>public</maven.jdbc.schema>
   </properties>
 
   <dependencyManagement>	  
