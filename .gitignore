@@ -1,4 +1,4 @@
-target
+**/target
 local
 bin
 .settings
@@ -10,4 +10,4 @@ bin
 /nbproject
 /*.ipr
 /*.iws
-/*.iml
+**/*.iml
