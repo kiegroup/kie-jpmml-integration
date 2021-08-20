@@ -46,14 +46,6 @@
         <artifactId>pmml-evaluator-extension</artifactId>
         <version>${version.org.jpmml.evaluator}</version>   
       </dependency>
-
-      <!-- jdk11 support -->
-      <dependency>
-        <groupId>org.glassfish.jaxb</groupId>
-        <artifactId>jaxb-runtime</artifactId>
-        <version>${version.org.glassfish.jaxb}</version>
-        <scope>provided</scope>
-      </dependency>
     </dependencies>
   </dependencyManagement>
 </project>
