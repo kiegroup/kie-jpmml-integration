@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.kie</groupId>
     <artifactId>drools-build-parent</artifactId>
-    <version>8.33.0-SNAPSHOT</version>
+    <version>8.39.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>kie-jpmml-integration</artifactId>
@@ -49,7 +49,6 @@
 
   <properties>
     <version.org.jpmml.evaluator>1.5.1</version.org.jpmml.evaluator> <!-- ATTENTION 1.5.1 intentional, because 1.5.1 evaluators works with 1.5.1 -->
-    <version.io.smallrye>3.0.5</version.io.smallrye> <!-- to be removed after https://github.com/kiegroup/drools/pull/4908 is merged -->
   </properties>
 
   <dependencyManagement>
@@ -66,17 +65,4 @@
       </dependency>
     </dependencies>
   </dependencyManagement>
-
-  <build>
-    <pluginManagement>
-      <plugins>
-        <!-- to be removed after https://github.com/kiegroup/drools/pull/4908 is merged -->
-        <plugin>
-          <groupId>io.smallrye</groupId>
-          <artifactId>jandex-maven-plugin</artifactId>
-          <version>${version.io.smallrye}</version>
-        </plugin>
-      </plugins>
-    </pluginManagement>
-  </build>
 </project>
