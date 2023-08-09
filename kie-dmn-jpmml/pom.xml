@@ -6,7 +6,6 @@
     <version>8.39.0-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
-
   <artifactId>kie-dmn-jpmml</artifactId>
 
   <name>KIE :: Decision Model Notation :: jPMML extension support</name>
