@@ -1,28 +1,35 @@
-name: Build Chain
+name: KIE jpmml integration
 
 on:
   pull_request:
     types: [opened, synchronize, reopened, ready_for_review]
     paths-ignore:
-      - 'LICENSE*'
-      - '.gitignore'
-      - '*.md'
+      - 'LICENSE'
+      - '**/.gitignore'
+      - '**.md'
+      - '**.adoc'
       - '*.txt'
+      - 'docsimg/**'
+      - '.ci/jenkins/**'
 
 jobs:
-  build-chain:
+  kie-jpmml-integration-build:
     concurrency:
-      group: pull_request-${{ github.head_ref }}-${{ matrix.os }}-${{ matrix.java-version }}
+      group: pr-kie-jpmml-integration-build_${{ matrix.os }}_${{ matrix.java-version }}_${{ matrix.maven-version }}_${{ github.head_ref }}
       cancel-in-progress: true
+    timeout-minutes: 120
     strategy:
       matrix:
-        os: [ubuntu-latest, windows-latest]
-        java-version: [8, 11]
-        maven-version: ['3.8.1']
+        os: [ubuntu-latest] # TODO do we want windows here ?
+        java-version: [11]
+        maven-version: ['3.8.7']
       fail-fast: false
     runs-on: ${{ matrix.os }}
-    name: ${{ matrix.os }} - Java ${{ matrix.java-version }} - Maven
+    name: ${{ matrix.os }} / Java-${{ matrix.java-version }} / Maven-${{ matrix.maven-version }}
     steps:
+      - name: Clean Disk Space
+        uses: kiegroup/kie-ci/.ci/actions/ubuntu-disk-space@main
+        if: ${{ matrix.os == 'ubuntu-latest' }}
       - name: Support long paths
         if: ${{ matrix.os == 'windows-latest' }}
         uses: kiegroup/kie-ci/.ci/actions/long-paths@main
@@ -35,9 +42,11 @@ jobs:
       - name: Build Chain
         uses: kiegroup/kie-ci/.ci/actions/build-chain@main
         with:
-          definition-file: https://raw.githubusercontent.com/${GROUP:kiegroup}/droolsjbpm-build-bootstrap/${BRANCH:main}/.ci/pull-request-config.yaml
+          definition-file: https://raw.githubusercontent.com/${GROUP:kiegroup}/drools/${BRANCH:main}/.ci/buildchain-config.yaml
           annotations-prefix: ${{ runner.os }}-${{ matrix.java-version }}/${{ matrix.maven-version }}
           github-token: "${{ secrets.GITHUB_TOKEN }}"
       - name: Surefire Report
         uses: kiegroup/kie-ci/.ci/actions/surefire-report@main
         if: ${{ always() }}
+        with:
+          report_paths: '**/*-reports/TEST-*.xml'
