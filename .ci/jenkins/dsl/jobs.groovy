@@ -35,11 +35,11 @@ Map getMultijobPRConfig(JenkinsFolder jobFolder) {
             [
                 id: 'kie-jpmml-integration',
                 primary: true,
-                env : [
-                    // Sonarcloud analysis only on main branch
-                    // As we have only Community edition
-                    ENABLE_SONARCLOUD: EnvUtils.isDefaultEnvironment(this, jobFolder.getEnvironmentName()) && Utils.isMainBranch(this),
-                ]
+                // env : [
+                //     // Sonarcloud analysis only on main branch
+                //     // As we have only Community edition
+                //     ENABLE_SONARCLOUD: EnvUtils.isDefaultEnvironment(this, jobFolder.getEnvironmentName()) && Utils.isMainBranch(this),
+                // ]
             ]
         ]
     ]
@@ -64,7 +64,7 @@ KogitoJobUtils.createNightlyBuildChainBuildAndDeployJobForCurrentRepo(this, '', 
 
 // Environment nightlies
 setupSpecificBuildChainNightlyJob('native')
-setupSpecificBuildChainNightlyJob('sonarcloud')
+// setupSpecificBuildChainNightlyJob('sonarcloud')
 
 // Jobs with integration branch
 setupQuarkusIntegrationJob('quarkus-main')
