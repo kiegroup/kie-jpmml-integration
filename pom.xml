@@ -4,47 +4,64 @@
   <modelVersion>4.0.0</modelVersion>
   <parent>
     <groupId>org.kie</groupId>
-    <artifactId>kie-parent</artifactId>
-    <version>7.75.0-SNAPSHOT</version>
+    <artifactId>drools-build-parent</artifactId>
+    <version>8.44.0-SNAPSHOT</version>
   </parent>
- 
+
   <artifactId>kie-jpmml-integration</artifactId>
   <packaging>pom</packaging>
 
+  <repositories>
+    <repository>
+      <!-- Duplicating the Maven Central repository here (as it is already coming from Super POM) makes the build much faster,
+           as the Maven Central is now treated as the first (default) repository (because it is before the JBoss.org one).
+           Artifacts with release (fixed) versions are being downloaded primarily from there. Without the central being the
+           first repository the JBoss.org Nexus would be contacted first and since it is quite slow it slows down the build.
+           We use JBoss.org repo only to download our SNAPSHOTs. -->
+      <id>central</id>
+      <name>Central Repository</name>
+      <url>https://repo.maven.apache.org/maven2</url>
+      <layout>default</layout>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+    </repository>
+    <!-- Bootstrap repository to locate the parent pom when the parent pom has not been build locally. -->
+    <!-- Conventions are described in http://community.jboss.org/wiki/MavenGettingStarted-Developers -->
+    <repository>
+      <id>jboss-public-repository-group</id>
+      <name>JBoss Public Repository Group</name>
+      <url>https://repository.jboss.org/nexus/content/groups/public/</url>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>true</enabled>
+        <updatePolicy>daily</updatePolicy>
+      </snapshots>
+    </repository>
+  </repositories>
+
   <modules>
     <module>kie-dmn-jpmml</module>
-    <module>jbpm-recommendation-pmml-logistic-regression</module>
-    <module>jbpm-recommendation-pmml-random-forest</module>
   </modules>
-  
+
   <properties>
     <version.org.jpmml.evaluator>1.5.1</version.org.jpmml.evaluator> <!-- ATTENTION 1.5.1 intentional, because 1.5.1 evaluators works with 1.5.1 -->
-    <version.org.glassfish.jaxb>2.4.0-b180830.0438</version.org.glassfish.jaxb>
-
-    <maven.hibernate.dialect>org.hibernate.dialect.H2Dialect</maven.hibernate.dialect>
-    <maven.datasource.classname>org.h2.jdbcx.JdbcDataSource</maven.datasource.classname>
-    <maven.jdbc.driver.class>org.h2.Driver</maven.jdbc.driver.class>
-    <maven.jdbc.db.name/>
-    <maven.jdbc.db.port/>
-    <maven.jdbc.db.server/>
-    <maven.jdbc.driver.jar/>
-    <maven.jdbc.username>sa</maven.jdbc.username>
-    <maven.jdbc.password>sasa</maven.jdbc.password>
-    <maven.jdbc.url>jdbc:h2:tcp://localhost/${project.basedir}/target/jbpm-test;MODE=LEGACY;NON_KEYWORDS=VALUE</maven.jdbc.url>
-    <maven.jdbc.schema>public</maven.jdbc.schema>
   </properties>
 
-  <dependencyManagement>	  
+  <dependencyManagement>
     <dependencies>
       <dependency>
         <groupId>org.jpmml</groupId>
         <artifactId>pmml-evaluator</artifactId>
-        <version>${version.org.jpmml.evaluator}</version>       
+        <version>${version.org.jpmml.evaluator}</version>
       </dependency>
       <dependency>
         <groupId>org.jpmml</groupId>
         <artifactId>pmml-evaluator-extension</artifactId>
-        <version>${version.org.jpmml.evaluator}</version>   
+        <version>${version.org.jpmml.evaluator}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>

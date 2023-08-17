@@ -17,16 +17,9 @@
 package org.kie.dmn.jpmml;
 
 import org.kie.api.internal.assembler.KieAssemblerService;
-import org.kie.api.io.Resource;
-import org.kie.api.io.ResourceConfiguration;
 import org.kie.api.io.ResourceType;
 
 public class IgnorePMMLResourceAssembler implements KieAssemblerService {
-
-    @Override
-    public void addResource(Object arg0, Resource arg1, ResourceType arg2, ResourceConfiguration arg3) throws Exception {
-        // do nothing.
-    }
 
     @Override
     public ResourceType getResourceType() {

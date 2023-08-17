@@ -3,7 +3,8 @@
   <parent>
     <groupId>org.kie</groupId>
     <artifactId>kie-jpmml-integration</artifactId>
-    <version>7.75.0-SNAPSHOT</version>
+    <version>8.44.0-SNAPSHOT</version>
+    <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>kie-dmn-jpmml</artifactId>
 
@@ -22,15 +23,8 @@
     <dependencies>
       <dependency>
         <groupId>org.kie</groupId>
-        <artifactId>kie-dmn-bom</artifactId>
-        <version>${version.org.kie}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-      <dependency>
-        <groupId>org.kie</groupId>
         <artifactId>kie-dmn-core</artifactId>
-        <version>${version.org.kie}</version>
+        <version>${project.version}</version>
         <classifier>tests</classifier>
         <scope>test</scope>
       </dependency>
@@ -39,7 +33,7 @@
         <artifactId>kie-dmn-pmml-tests</artifactId>
         <classifier>tests</classifier>
         <scope>test</scope>
-        <version>${version.org.kie}</version>
+        <version>${project.version}</version>
       </dependency>
     </dependencies>
   </dependencyManagement>
@@ -58,22 +52,12 @@
       <scope>provided</scope>
       <optional>true</optional>
     </dependency>
-    <dependency>
-      <groupId>org.jpmml</groupId>
-      <artifactId>pmml-model</artifactId>
-    </dependency>
     <!-- /External dependencies -->
 
     <dependency>
       <groupId>org.kie</groupId>
       <artifactId>kie-dmn-api</artifactId>
       <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.kie</groupId>
-      <artifactId>kie-dmn-pmml-tests</artifactId>
-      <classifier>tests</classifier>
-      <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.kie</groupId>
@@ -90,31 +74,10 @@
       <artifactId>kie-dmn-core</artifactId>
       <scope>provided</scope>
     </dependency>
-    <dependency>
-      <groupId>org.kie</groupId>
-      <artifactId>kie-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.kie</groupId>
-      <artifactId>kie-internal</artifactId>
-      <scope>provided</scope>
-    </dependency>
     <!-- External dependencies -->
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-api</artifactId>
-      <scope>provided</scope>
-    </dependency>
-
-    <dependency>
-      <groupId>org.osgi</groupId>
-      <artifactId>org.osgi.core</artifactId>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
-      <groupId>org.osgi</groupId>
-      <artifactId>org.osgi.compendium</artifactId>
       <scope>provided</scope>
     </dependency>
 
@@ -130,14 +93,16 @@
       <scope>provided</scope>
     </dependency>
 
+    <!--  Test dependencies   -->
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
+      <groupId>org.kie</groupId>
+      <artifactId>kie-dmn-core</artifactId>
+      <classifier>tests</classifier>
       <scope>test</scope>
     </dependency>
     <dependency>
       <groupId>org.kie</groupId>
-      <artifactId>kie-dmn-core</artifactId>
+      <artifactId>kie-dmn-pmml-tests</artifactId>
       <classifier>tests</classifier>
       <scope>test</scope>
     </dependency>
@@ -147,13 +112,13 @@
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.hamcrest</groupId>
-      <artifactId>hamcrest-library</artifactId>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
       <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.assertj</groupId>
-      <artifactId>assertj-core</artifactId>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-engine</artifactId>
       <scope>test</scope>
     </dependency>
   </dependencies>
@@ -161,7 +126,7 @@
   <build>
     <plugins>
       <plugin>
-        <groupId>org.jboss.jandex</groupId>
+        <groupId>${jandex-maven-plugin.group-id}</groupId>
         <artifactId>jandex-maven-plugin</artifactId>
         <executions>
           <execution>
