@@ -44,11 +44,10 @@ Map getMultijobPRConfig(JenkinsFolder jobFolder) {
         ]
     ]
 
-    // TODO to enable once Quarkus 3 migration is needed
     // For Quarkus 3, run only kie-jpmml-integration PR check... for now
-    // if (EnvUtils.hasEnvironmentId(this, jobFolder.getEnvironmentName(), 'quarkus3')) {
-    //     jobConfig.jobs.retainAll { it.id == 'kie-jpmml-integration' }
-    // }
+    if (EnvUtils.hasEnvironmentId(this, jobFolder.getEnvironmentName(), 'quarkus3')) {
+        jobConfig.jobs.retainAll { it.id == 'kie-jpmml-integration' }
+    }
 
     return jobConfig
 }
@@ -77,12 +76,11 @@ setupQuarkusIntegrationJob('native-lts')
 setupDeployJob(JobType.RELEASE)
 setupPromoteJob(JobType.RELEASE)
 
-// TODO to enable once Quarkus 3 migration is needed
 // Quarkus 3
-// if (EnvUtils.isEnvironmentEnabled(this, 'quarkus-3')) {
-//     setupPrQuarkus3RewriteJob()
-//     setupStandaloneQuarkus3RewriteJob()
-// }
+if (EnvUtils.isEnvironmentEnabled(this, 'quarkus-3')) {
+    setupPrQuarkus3RewriteJob()
+    setupStandaloneQuarkus3RewriteJob()
+}
 
 /////////////////////////////////////////////////////////////////
 // Methods
