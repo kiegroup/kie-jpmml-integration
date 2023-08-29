@@ -52,13 +52,13 @@ ${mvn_cmd} org.openrewrite.maven:rewrite-maven-plugin:${rewrite_plugin_version}:
     -DplainTextMasks=**/kmodule.xml
 
 # Update dependencies with Quarkus 3 bom
-${mvn_cmd} \
-    -pl :drools-build-parent \
-    -DremotePom=io.quarkus:quarkus-bom:${quarkus_version} \
-    -DupdatePropertyVersions=true \
-    -DupdateDependencies=true \
-    -DgenerateBackupPoms=false \
-    versions:compare-dependencies
+# ${mvn_cmd} \
+#     -pl :drools-build-parent \
+#     -DremotePom=io.quarkus:quarkus-bom:${quarkus_version} \
+#     -DupdatePropertyVersions=true \
+#     -DupdateDependencies=true \
+#     -DgenerateBackupPoms=false \
+#     versions:compare-dependencies
 
 # Create the `patches/0001_before_sh.patch` file
 git add .

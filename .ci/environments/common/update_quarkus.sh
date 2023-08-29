@@ -10,5 +10,4 @@ echo "Update project with Quarkus version ${QUARKUS_VERSION}"
 set -x
 
 # Update with Quarkus version and commit
-${mvn_cmd} versions:compare-dependencies -pl :drools-build-parent -DremotePom=io.quarkus:quarkus-bom:${QUARKUS_VERSION} -DupdatePropertyVersions=true -DupdateDependencies=true -DgenerateBackupPoms=false
-${mvn_cmd} versions:set-property -pl :drools-build-parent -Dproperty=version.io.quarkus -DnewVersion=${QUARKUS_VERSION} -DgenerateBackupPoms=false -Dmaven.wagon.http.ssl.insecure=true
+# Nothing to do here
