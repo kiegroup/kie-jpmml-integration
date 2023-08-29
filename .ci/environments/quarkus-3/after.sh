@@ -10,5 +10,6 @@ project_version=$(mvn -q -Dexpression=project.version -DforceStdout help:evaluat
 new_version=$(echo ${project_version} | awk -F. -v OFS=. '{$1 += 1 ; print}')
 
 # Change version
+set -x
 ${mvn_cmd} -fae -N -e versions:update-parent -Dfull -DparentVersion="[${new_version}]" -DallowSnapshots=true -DgenerateBackupPoms=false
 ${mvn_cmd} -fae -N -e versions:update-child-modules -Dfull -DallowSnapshots=true -DgenerateBackupPoms=false

@@ -1,0 +1,96 @@
+diff --git a/kie-dmn-jpmml/pom.xml b/kie-dmn-jpmml/pom.xml
+index 5a05845..6b65c77 100644
+--- a/kie-dmn-jpmml/pom.xml
++++ b/kie-dmn-jpmml/pom.xml
+@@ -3,7 +3,7 @@
+   <parent>
+     <groupId>org.kie</groupId>
+     <artifactId>kie-jpmml-integration</artifactId>
+-    <version>8.44.0-SNAPSHOT</version>
++    <version>9.44.0-SNAPSHOT</version>
+     <relativePath>../pom.xml</relativePath>
+   </parent>
+   <artifactId>kie-dmn-jpmml</artifactId>
+@@ -46,12 +46,6 @@
+       <scope>provided</scope>
+       <optional>true</optional>
+     </dependency>
+-    <dependency>
+-      <groupId>org.jpmml</groupId>
+-      <artifactId>pmml-evaluator-extension</artifactId>
+-      <scope>provided</scope>
+-      <optional>true</optional>
+-    </dependency>
+     <!-- /External dependencies -->
+ 
+     <dependency>
+diff --git a/kie-dmn-jpmml/src/main/java/org/kie/dmn/jpmml/DMNjPMMLInvocationEvaluator.java b/kie-dmn-jpmml/src/main/java/org/kie/dmn/jpmml/DMNjPMMLInvocationEvaluator.java
+index 8df10be..6b1aa76 100644
+--- a/kie-dmn-jpmml/src/main/java/org/kie/dmn/jpmml/DMNjPMMLInvocationEvaluator.java
++++ b/kie-dmn-jpmml/src/main/java/org/kie/dmn/jpmml/DMNjPMMLInvocationEvaluator.java
+@@ -24,8 +24,7 @@ import java.util.Map;
+ import java.util.Map.Entry;
+ import java.util.function.Supplier;
+ 
+-import org.dmg.pmml.FieldName;
+-import org.jpmml.evaluator.visitors.DefaultModelEvaluatorBattery;
++import org.jpmml.evaluator.visitors.ModelEvaluatorVisitorBattery;
+ import org.jpmml.evaluator.EvaluatorUtil;
+ import org.jpmml.evaluator.FieldValue;
+ import org.jpmml.evaluator.InputField;
+@@ -53,7 +52,7 @@ public class DMNjPMMLInvocationEvaluator extends AbstractPMMLInvocationEvaluator
+         super(dmnNS, node, pmmlResource, model);
+         LoadingModelEvaluatorBuilder builder = new LoadingModelEvaluatorBuilder();
+         try (InputStream documentStream = documentResource.getInputStream()) {
+-            Supplier<DefaultModelEvaluatorBattery> visitors = () -> new DefaultModelEvaluatorBattery();
++            Supplier<ModelEvaluatorVisitorBattery> visitors = ModelEvaluatorVisitorBattery::new;
+             evaluator = builder.setLocatable(false)
+                                .setVisitors(visitors.get())
+                                .load(documentStream)
+@@ -66,16 +65,16 @@ public class DMNjPMMLInvocationEvaluator extends AbstractPMMLInvocationEvaluator
+     public EvaluatorResult evaluate(DMNRuntimeEventManager eventManager, DMNResult dmnr) {
+         List<? extends InputField> inputFields = evaluator.getInputFields();
+ 
+-        Map<FieldName, FieldValue> arguments = new LinkedHashMap<>();
++        Map<String, FieldValue> arguments = new LinkedHashMap<>();
+         for (InputField inputField : inputFields) {
+-            FieldName inputName = inputField.getName();
+-            Object rawValue = getValueForPMMLInput(dmnr, inputName.getValue());
++            String inputName = inputField.getName();
++            Object rawValue = getValueForPMMLInput(dmnr, inputName);
+             FieldValue inputValue = inputField.prepare(rawValue);
+             LOG.trace("{}", inputName);
+             LOG.trace("{}", inputValue);
+             arguments.put(inputName, inputValue);
+             }
+-        Map<FieldName, ?> results = evaluator.evaluate(arguments);
++        Map<String, ?> results = evaluator.evaluate(arguments);
+         Map<String, ?> resultsRecord = EvaluatorUtil.decodeAll(results);
+ 
+         Map<String, Object> result = new HashMap<>();
+@@ -85,7 +84,7 @@ public class DMNjPMMLInvocationEvaluator extends AbstractPMMLInvocationEvaluator
+             }
+         } else {
+             for (OutputField of : evaluator.getOutputFields()) {
+-                String outputFieldName = of.getName().getValue();
++                String outputFieldName = of.getName();
+                 result.put(outputFieldName, EvalHelper.coerceNumber(resultsRecord.getOrDefault(outputFieldName, null)));
+             }
+         }
+diff --git a/pom.xml b/pom.xml
+index 90e4c41..8fb534d 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -58,11 +58,7 @@
+         <artifactId>pmml-evaluator</artifactId>
+         <version>${version.org.jpmml.evaluator}</version>
+       </dependency>
+-      <dependency>
+-        <groupId>org.jpmml</groupId>
+-        <artifactId>pmml-evaluator-extension</artifactId>
+-        <version>${version.org.jpmml.evaluator}</version>
+-      </dependency>
++      
+     </dependencies>
+   </dependencyManagement>
+ </project>
