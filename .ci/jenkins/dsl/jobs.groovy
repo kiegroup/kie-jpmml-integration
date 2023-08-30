@@ -195,7 +195,6 @@ void setupPromoteJob(JobType jobType) {
     }
 }
 
-// TODO to enable once Quarkus 3 migration is needed
 void setupPrQuarkus3RewriteJob() {
     def jobParams = JobParamsUtils.getBasicJobParamsWithEnv(this, 'kie-jpmml-integration.rewrite', JobType.PULL_REQUEST, 'quarkus-3', "${jenkins_path}/Jenkinsfile.quarkus-3.rewrite.pr", 'KIE jpmml integration Quarkus 3 rewrite patch regeneration')
     JobParamsUtils.setupJobParamsDefaultMavenConfiguration(this, jobParams)

@@ -1,0 +1,13 @@
+diff --git a/pom.xml b/pom.xml
+index 0c0f0f1..cb07444 100644
+--- a/pom.xml
++++ b/pom.xml
+@@ -48,7 +48,7 @@
+   </modules>
+ 
+   <properties>
+-    <version.org.jpmml.evaluator>1.5.1</version.org.jpmml.evaluator> <!-- ATTENTION 1.5.1 intentional, because 1.5.1 evaluators works with 1.5.1 -->
++    <version.org.jpmml.evaluator>1.6.4</version.org.jpmml.evaluator> <!-- ATTENTION 1.5.1 intentional, because 1.5.1 evaluators works with 1.5.1 -->
+   </properties>
+ 
+   <dependencyManagement>
