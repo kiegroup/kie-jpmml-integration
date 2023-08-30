@@ -2,15 +2,6 @@ diff --git a/kie-dmn-jpmml/pom.xml b/kie-dmn-jpmml/pom.xml
 index 5a05845..6b65c77 100644
 --- a/kie-dmn-jpmml/pom.xml
 +++ b/kie-dmn-jpmml/pom.xml
-@@ -3,7 +3,7 @@
-   <parent>
-     <groupId>org.kie</groupId>
-     <artifactId>kie-jpmml-integration</artifactId>
--    <version>8.44.0-SNAPSHOT</version>
-+    <version>9.44.0-SNAPSHOT</version>
-     <relativePath>../pom.xml</relativePath>
-   </parent>
-   <artifactId>kie-dmn-jpmml</artifactId>
 @@ -46,12 +46,6 @@
        <scope>provided</scope>
        <optional>true</optional>
