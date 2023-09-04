@@ -3,6 +3,8 @@ import org.jenkinsci.plugins.workflow.libs.Library
 
 import org.kie.jenkins.MavenCommand
 
+droolsRepo = 'drools'
+
 pipeline {
     agent {
         label 'kie-rhel8 && !built-in'
@@ -32,8 +34,21 @@ pipeline {
                     if (params.DISPLAY_NAME) {
                         currentBuild.displayName = params.DISPLAY_NAME
                     }
-                    dir(getRepoName()) {
-                        checkoutRepo(getRepoName(), getBuildBranch())
+                    
+                    checkoutRepo(droolsRepo, getBuildBranch())
+                    checkoutRepo(getRepoName(), getBuildBranch())
+                }
+            }
+        }
+        stage('Build Drools') {
+            steps {
+                script {
+                    dir(droolsRepo) {
+                        getMavenCommand()
+                            .withOptions(env.BUILD_MVN_OPTS_UPSTREAM ? [ env.BUILD_MVN_OPTS_UPSTREAM ] : [])
+                            .withOptions(env.DROOLS_BUILD_MVN_OPTS_UPSTREAM ? [ env.DROOLS_BUILD_MVN_OPTS_UPSTREAM ] : [])
+                            .withProperty('quickly')
+                            .run('clean install')
                     }
                 }
             }
@@ -42,7 +57,7 @@ pipeline {
             steps {
                 script {
                     dir(getRepoName()) {
-                        maven.mvnVersionsUpdateParentAndChildModules(getMavenCommand(), getDroolsVersion(), !isRelease())
+                        maven.mvnVersionsUpdateParentAndChildModules(getMavenCommand(), getDroolsVersion(), true)
                     }
                 }
             }
@@ -88,9 +103,11 @@ void sendNotification() {
 }
 
 void checkoutRepo(String repository, String branch) {
-    checkout(githubscm.resolveRepository(repository, getGitAuthor(), branch, false))
-    // need to manually checkout branch since on a detached branch after checkout command
-    sh "git checkout ${branch}"
+    dir(repository) {
+        checkout(githubscm.resolveRepository(repository, getGitAuthor(), branch, false))
+        // need to manually checkout branch since on a detached branch after checkout command
+        sh "git checkout ${branch}"
+    }
 }
 
 String getRepoName() {
