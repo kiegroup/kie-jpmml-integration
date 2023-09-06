@@ -3,7 +3,7 @@
   <parent>
     <groupId>org.kie</groupId>
     <artifactId>kie-jpmml-integration</artifactId>
-    <version>9.44.0-SNAPSHOT</version>
+    <version>9.44.1-SNAPSHOT</version>
     <relativePath>../pom.xml</relativePath>
   </parent>
   <artifactId>kie-dmn-jpmml</artifactId>
