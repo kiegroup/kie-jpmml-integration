@@ -84,7 +84,7 @@ pipeline {
             }
             steps {
                 script {
-                    maven.mvnVersionsSet(getMavenCommand(), getProjectVersion(), !isRelease())
+                    maven.mvnVersionsUpdateParentAndChildModules(getMavenCommand(), getProjectVersion(), !isRelease())
                 }
             }
         }
