@@ -24,8 +24,7 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.function.Supplier;
 
-import org.dmg.pmml.FieldName;
-import org.jpmml.evaluator.visitors.DefaultModelEvaluatorBattery;
+import org.jpmml.evaluator.visitors.ModelEvaluatorVisitorBattery;
 import org.jpmml.evaluator.EvaluatorUtil;
 import org.jpmml.evaluator.FieldValue;
 import org.jpmml.evaluator.InputField;
@@ -53,7 +52,7 @@ public class DMNjPMMLInvocationEvaluator extends AbstractPMMLInvocationEvaluator
         super(dmnNS, node, pmmlResource, model);
         LoadingModelEvaluatorBuilder builder = new LoadingModelEvaluatorBuilder();
         try (InputStream documentStream = documentResource.getInputStream()) {
-            Supplier<DefaultModelEvaluatorBattery> visitors = () -> new DefaultModelEvaluatorBattery();
+            Supplier<ModelEvaluatorVisitorBattery> visitors = ModelEvaluatorVisitorBattery::new;
             evaluator = builder.setLocatable(false)
                                .setVisitors(visitors.get())
                                .load(documentStream)
@@ -66,16 +65,16 @@ public class DMNjPMMLInvocationEvaluator extends AbstractPMMLInvocationEvaluator
     public EvaluatorResult evaluate(DMNRuntimeEventManager eventManager, DMNResult dmnr) {
         List<? extends InputField> inputFields = evaluator.getInputFields();
 
-        Map<FieldName, FieldValue> arguments = new LinkedHashMap<>();
+        Map<String, FieldValue> arguments = new LinkedHashMap<>();
         for (InputField inputField : inputFields) {
-            FieldName inputName = inputField.getName();
-            Object rawValue = getValueForPMMLInput(dmnr, inputName.getValue());
+            String inputName = inputField.getName();
+            Object rawValue = getValueForPMMLInput(dmnr, inputName);
             FieldValue inputValue = inputField.prepare(rawValue);
             LOG.trace("{}", inputName);
             LOG.trace("{}", inputValue);
             arguments.put(inputName, inputValue);
             }
-        Map<FieldName, ?> results = evaluator.evaluate(arguments);
+        Map<String, ?> results = evaluator.evaluate(arguments);
         Map<String, ?> resultsRecord = EvaluatorUtil.decodeAll(results);
 
         Map<String, Object> result = new HashMap<>();
@@ -85,7 +84,7 @@ public class DMNjPMMLInvocationEvaluator extends AbstractPMMLInvocationEvaluator
             }
         } else {
             for (OutputField of : evaluator.getOutputFields()) {
-                String outputFieldName = of.getName().getValue();
+                String outputFieldName = of.getName();
                 result.put(outputFieldName, EvalHelper.coerceNumber(resultsRecord.getOrDefault(outputFieldName, null)));
             }
         }

@@ -5,7 +5,7 @@
   <parent>
     <groupId>org.kie</groupId>
     <artifactId>drools-build-parent</artifactId>
-    <version>8.45.0-SNAPSHOT</version>
+    <version>9.45.0-SNAPSHOT</version>
   </parent>
 
   <artifactId>kie-jpmml-integration</artifactId>
@@ -48,7 +48,7 @@
   </modules>
 
   <properties>
-    <version.org.jpmml.evaluator>1.5.1</version.org.jpmml.evaluator> <!-- ATTENTION 1.5.1 intentional, because 1.5.1 evaluators works with 1.5.1 -->
+    <version.org.jpmml.evaluator>1.6.4</version.org.jpmml.evaluator> <!-- ATTENTION 1.5.1 intentional, because 1.5.1 evaluators works with 1.5.1 -->
   </properties>
 
   <dependencyManagement>
@@ -58,11 +58,7 @@
         <artifactId>pmml-evaluator</artifactId>
         <version>${version.org.jpmml.evaluator}</version>
       </dependency>
-      <dependency>
-        <groupId>org.jpmml</groupId>
-        <artifactId>pmml-evaluator-extension</artifactId>
-        <version>${version.org.jpmml.evaluator}</version>
-      </dependency>
+
     </dependencies>
   </dependencyManagement>
 </project>
