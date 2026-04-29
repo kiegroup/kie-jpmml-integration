@@ -46,6 +46,11 @@
         <artifactId>pmml-evaluator-extension</artifactId>
         <version>${version.org.jpmml.evaluator}</version>   
       </dependency>
+      <dependency>
+        <groupId>org.codehaus.plexus</groupId>
+        <artifactId>plexus-utils</artifactId>
+        <version>3.6.1</version>
+      </dependency>
     </dependencies>
   </dependencyManagement>
 </project>
